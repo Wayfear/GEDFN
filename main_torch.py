@@ -39,11 +39,12 @@ class PartitionLayer(nn.Module):
         self.partition = partition
         self.in_features = partition.shape[0]
         self.out_features = partition.shape[0]
-        self.weight = nn.Parameter(torch.Tensor(
-            self.out_features, self.in_features))
+        self.weight = nn.Parameter(torch.zeros(
+            self.out_features, self.in_features), requires_grad=True)
 
         if bias:
-            self.bias = nn.Parameter(torch.Tensor(self.out_features))
+            self.bias = nn.Parameter(torch.zeros(
+                self.out_features), requires_grad=True)
         else:
             self.register_parameter('bias', None)
         self.reset_parameters()
